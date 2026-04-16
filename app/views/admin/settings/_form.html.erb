@@ -1,0 +1,33 @@
+<%= form_with(model: [:admin, setting]) do |form| %>
+  <% if setting.errors.any? %>
+    <div style="background: rgba(255, 68, 68, 0.1); border: 1px solid rgba(255, 68, 68, 0.2); color: #ff4444; padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+      <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;"><%= pluralize(setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+      <ul style="padding-left: 20px; font-size: 14px;">
+        <% setting.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :key, class: "form-label" %>
+    <%= form.text_field :key, class: "form-input", placeholder: "e.g. site_name" %>
+    <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Unique identifier for the setting.</p>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :value, class: "form-label" %>
+    <%= form.text_area :value, class: "form-input form-textarea", placeholder: "Enter setting value..." %>
+  </div>
+
+  <div style="display: flex; gap: 12px; margin-top: 40px;">
+    <%= form.button class: "btn-admin btn-admin-primary" do %>
+      <i data-lucide="save" style="width: 18px"></i>
+      <span>Save Setting</span>
+    <% end %>
+    <%= link_to admin_settings_path, class: "btn-admin btn-admin-secondary" do %>
+      <span>Cancel</span>
+    <% end %>
+  </div>
+<% end %>

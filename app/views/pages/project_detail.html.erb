@@ -1,0 +1,53 @@
+<section id="project-hero" style="padding-top: 180px; min-height: 80vh;">
+  <div class="reveal">
+    <div class="section-label">Case Study</div>
+    <h1 class="hero-headline" style="font-size: clamp(48px, 8vw, 96px); margin-bottom: 40px;">
+      Redesigning <span class="cyan">Luxe Store</span>
+    </h1>
+    
+    <div class="hero-sub-row" style="align-items: flex-start; gap: 80px;">
+      <div style="flex: 2;">
+        <p class="hero-desc" style="max-width: 600px; font-size: 20px; line-height: 1.6; color: rgba(245, 245, 245, 0.7);">
+          A complete digital transformation for a high-end fashion retailer. We rebuilt their E-commerce engine from the ground up, focusing on speed, elegance, and mobile conversion.
+        </p>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 32px;">
+        <div>
+          <div class="label" style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(245, 245, 245, 0.3); margin-bottom: 8px;">Services</div>
+          <div style="font-weight: 600;">Web Development, UI/UX Design</div>
+        </div>
+        <div>
+          <div class="label" style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(245, 245, 245, 0.3); margin-bottom: 8px;">Date</div>
+          <div style="font-weight: 600;">March 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="project-visuals" style="padding: 0 48px;">
+  <div class="reveal" style="border-radius: 32px; overflow: hidden; background: var(--gray); aspect-ratio: 21/9; display: flex; align-items: center; justify-content: center;">
+     <%= image_tag "logo_client_white.png", style: "width: 30%; height: auto; opacity: 0.8;" %>
+  </div>
+</section>
+
+<section id="project-content" style="max-width: 900px; margin: 0 auto; padding: 120px 48px;">
+  <div class="reveal">
+    <h2 class="section-title" style="font-size: 48px; margin-bottom: 32px;">The Challenge</h2>
+    <p style="font-size: 18px; line-height: 1.8; color: rgba(245, 245, 245, 0.5); margin-bottom: 64px;">
+      Luxe Store faced significant performance bottlenecks and a dated design that didn't align with their premium product line. Their mobile conversion rate was notably below the industry average, impacting their growth in key Asian markets.
+    </p>
+
+    <h2 class="section-title" style="font-size: 48px; margin-bottom: 32px;">Our Solution</h2>
+    <p style="font-size: 18px; line-height: 1.8; color: rgba(245, 245, 245, 0.5); margin-bottom: 64px;">
+      We implemented a Headless Commerce architecture, separating the storefront from the backend to ensure blazing-fast load times. The UI was designed with a "mobile-first" philosophy, incorporating fluid animations and a minimalist aesthetic that lets the high-resolution product imagery shine.
+    </p>
+    
+    <%= link_to root_path, class: "btn-primary", style: "display: inline-flex; align-items: center; gap: 12px;" do %>
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="transform: rotate(180deg)">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </svg>
+      Back to Home
+    <% end %>
+  </div>
+</section>

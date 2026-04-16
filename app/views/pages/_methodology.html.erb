@@ -1,0 +1,25 @@
+<section id="process">
+  <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto 56px;">
+    <div class="section-label" style="justify-content:center">How We Work</div>
+    <h2 class="section-title">Our <span class="cyan">Process.</span></h2>
+  </div>
+
+  <div class="process-grid">
+    <% process = [
+      { id: "01", name: "Discovery", text: "Deep dive into your goals, audience, and market. We ask the uncomfortable questions first." },
+      { id: "02", name: "Strategy", text: "We map out the full picture — wireframes, content, tech stack, and timelines — before a pixel is touched." },
+      { id: "03", name: "Design & Build", text: "Rapid iteration with constant client feedback. No black boxes — you see the work in progress." },
+      { id: "04", name: "Launch & Grow", text: "Smooth deployment, performance monitoring, and ongoing support. We don't just ship and ghost." }
+    ] %>
+
+    <% process.each_with_index do |p, idx| %>
+      <div class="process-step reveal" style="transition-delay:<%= 0.1 * idx %>s">
+        <div class="process-num-wrap">
+          <div class="process-num"><%= p[:id] %></div>
+        </div>
+        <div class="process-name"><%= p[:name] %></div>
+        <p class="process-text"><%= p[:text] %></p>
+      </div>
+    <% end %>
+  </div>
+</section>

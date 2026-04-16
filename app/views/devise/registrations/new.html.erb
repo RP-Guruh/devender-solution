@@ -1,0 +1,80 @@
+<div class="auth-page">
+  <!-- ── LEFT SIDE: BRANDING & VISION ── -->
+  <div class="auth-visual-side">
+    <div class="auth-visual-grid"></div>
+    <div class="auth-visual-glow"></div>
+    
+    <div class="visual-content">
+      <div class="visual-logo">
+        <%= image_tag "logo_devender.png", alt: "Devender Logo" %>
+      </div>
+      <h1 class="visual-title">Join the vanguard of digital architecture.</h1>
+      <p class="visual-desc">Access advanced tools, exclusive networks, and infrastructure support to scale your digital presence globally.</p>
+    </div>
+  </div>
+
+  <!-- ── RIGHT SIDE: ENROLLMENT FORM ── -->
+  <div class="auth-form-side">
+    <div class="form-container">
+      <div class="form-header">
+        <h2 class="form-title">Enrollment</h2>
+        <p class="form-subtitle">Devender Solution.</p>
+      </div>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="auth-form-group">
+          <%= f.label :email, "Identity Email", class: "auth-label" %>
+          <div class="auth-input-wrap">
+            <i data-lucide="mail"></i>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "auth-input", placeholder: "identity@node.devender.id" %>
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <%= f.label :password, "Security Key", class: "auth-label" %>
+          <div class="auth-input-wrap">
+            <i data-lucide="key-round"></i>
+            <%= f.password_field :password, autocomplete: "new-password", class: "auth-input", placeholder: "••••••••" %>
+          </div>
+          <% if @minimum_password_length %>
+            <p style="font-size: 10px; color: rgba(0, 242, 255, 0.3); margin-top: 8px; font-family: 'JetBrains Mono', monospace;">MIN_ENTROPY: <%= @minimum_password_length %>_CHARS</p>
+          <% end %>
+        </div>
+
+        <div class="auth-form-group">
+          <%= f.label :password_confirmation, "Confirm Security Key", class: "auth-label" %>
+          <div class="auth-input-wrap">
+            <i data-lucide="shield-check"></i>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "auth-input", placeholder: "••••••••" %>
+          </div>
+        </div>
+
+        <div class="auth-actions">
+          <%= f.submit "Execute Enrollment", class: "auth-btn-main" %>
+        </div>
+      <% end %>
+
+      <div class="auth-links-grid">
+        <%- if controller_name != 'sessions' %>
+          <%= link_to new_session_path(resource_name), class: "auth-link-item" do %>
+            <i data-lucide="log-in"></i> Already an agent? Authorized entry
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="auth-copyright">
+        © <%= Time.now.year %> Devender Solution. Status: Recruiting
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  });
+</script>

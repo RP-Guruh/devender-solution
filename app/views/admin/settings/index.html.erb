@@ -1,0 +1,42 @@
+<% content_for :page_title, "Settings" %>
+<div class="admin-header">
+  <div>
+    <h1 class="page-title" style="font-size: 32px; margin-bottom: 8px;">System Settings</h1>
+    <p style="color: var(--text-muted); font-size: 14px;">Manage your application's global configuration and variables.</p>
+  </div>
+  <%= link_to new_admin_setting_path, class: "btn-admin btn-admin-primary" do %>
+    <i data-lucide="plus-circle" style="width: 18px"></i>
+    <span>New Setting</span>
+  <% end %>
+</div>
+
+<% if notice.present? %>
+  <div style="background: rgba(0, 200, 232, 0.1); border: 1px solid rgba(0, 200, 232, 0.2); color: var(--cyan); padding: 12px 20px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; display: flex; align-items: center; gap: 12px;">
+    <i data-lucide="check-circle" style="width: 18px"></i>
+    <%= notice %>
+  </div>
+<% end %>
+
+<div class="search-bar-wrap">
+  <%= search_form_for [:admin, @q], html: { class: "search-form search_input" }, method: :get, data: {turbo_frame: "results", controller: "search" } do |f| %>
+    <div class="search-input-group">
+      <i data-lucide="search" class="search-icon"></i>
+      <%= f.search_field :key_cont, 
+                         class: "search-input", 
+                         placeholder: "Filter configuration keys...", data: { action: "input->search#submit"} %>
+      <% if params[:q].present? && params[:q][:key_cont].present? %>
+        <%= link_to admin_settings_path, class: "clear-search", title: "Clear filter" do %>
+          <i data-lucide="x"></i>
+        <% end %>
+      <% end %>
+    </div>
+
+  <% end %>
+</div>
+
+
+<div class="admin-table-wrap">
+  <turbo-frame id="results" target="_top">
+    <%= render "table", settings: @settings %>
+  </turbo-frame>
+</div>

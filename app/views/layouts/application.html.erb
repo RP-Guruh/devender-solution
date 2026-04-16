@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="<%= controller_name %>-page <%= action_name %>-action">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Devender Solution — Digital Agency</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="<%= controller_name %>-page <%= action_name %>-action">
+    <!-- ── CUSTOM CURSOR ── -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- ── NAV ── -->
+    <nav id="navbar">
+      <a href="/" class="nav-logo">
+        <%= image_tag "logo_devender.png", class: "logo-icon", alt: "Devender Solution Logo", style: "filter: brightness(0) invert(1)" %>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#why">About</a></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "Dashboard", admin_dashboard_path, class: "nav-cta", style: "background:transparent; color:var(--cyan) !important; border:1px solid var(--cyan)" %></li>
+        <% else %>
+          <li><a href="#cta" class="nav-cta">Let's Talk</a></li>
+        <% end %>
+      </ul>
+    </nav>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-brand-logo"><%= image_tag "logo_devender.png", alt: "Devender Solution Logo", style: "filter: brightness(0) invert(1)" %></div>
+          <p class="footer-brand-desc">A digital agency that builds experiences people remember. Based in Indonesia, working worldwide.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="#services">Web Design</a></li>
+              <li><a href="#services">Brand Identity</a></li>
+              <li><a href="#services">UI/UX Design</a></li>
+              <li><a href="#services">App Development</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Portal</h4>
+            <ul>
+              <% if user_signed_in? %>
+                <li><%= link_to "Dashboard", admin_dashboard_path %></li>
+                <li><%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete } %></li>
+              <% else %>
+                <li><%= link_to "Admin Access", new_user_session_path %></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <ul>
+              <li><a href="mailto:hello@devender.id">hello@devender.id</a></li>
+              <li><a href="#">Depok, West Java</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© <%= Time.now.year %> Devender Solution. All rights reserved.</div>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" title="Instagram"><i data-lucide="instagram" style="width:14px"></i></a>
+          <a href="#" class="social-btn" title="LinkedIn"><i data-lucide="linkedin" style="width:14px"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      $(document).ready(function () {
+        lucide.createIcons();
+
+        // ── CURSOR
+        $(document).on('mousemove', function (e) {
+          $('#cursor').css({ left: e.clientX, top: e.clientY });
+          setTimeout(function () {
+            $('#cursor-ring').css({ left: e.clientX, top: e.clientY });
+          }, 80);
+        });
+
+        // ── NAV SCROLL
+        $(window).on('scroll', function () {
+          if ($(this).scrollTop() > 60) {
+            $('#navbar').addClass('scrolled');
+          } else {
+            $('#navbar').removeClass('scrolled');
+          }
+        });
+
+        // ── SCROLL REVEAL
+        function checkReveal() {
+          $('.reveal').each(function () {
+            var top = $(this).offset().top;
+            var windowBottom = $(window).scrollTop() + $(window).height();
+            if (windowBottom > top + 60) {
+              $(this).addClass('visible');
+            }
+          });
+        }
+        $(window).on('scroll', checkReveal);
+        checkReveal();
+
+        // ── SMOOTH SCROLL
+        $('a[href^="#"]').on('click', function (e) {
+          var hash = this.hash;
+          if (hash) {
+            e.preventDefault();
+            $('html, body').animate({ scrollTop: $(hash).offset().top - 80 }, 700);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

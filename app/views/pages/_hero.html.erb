@@ -1,0 +1,74 @@
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+
+
+
+  <h1 class="hero-headline">
+    <%= @settings['devender_hero_title_1'] || "We Build" %><br />
+    <span class="outline"><%= @settings['devender_hero_title_2'] || "Digital" %></span><br />
+    <span class="cyan"><%= @settings['devender_hero_title_3'] || "Experiences." %></span>
+  </h1>
+
+  <div class="hero-sub-row">
+    <p class="hero-desc">
+      <%= @settings['devender_small_tigeline'] || "A forward-thinking digital agency crafting brands, websites, and products." %>
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View Our Work</a>
+      <a href="#cta" class="btn-ghost">
+        Start a Project
+        <i data-lucide="arrow-right" style="width:14px; margin-left:8px"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Scroll to explore
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="num" data-count="<%= @settings['devender_project_done'] || 0 %>" data-suffix="">0</div>
+      <div class="label">Projects Done</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num" data-count="<%= @settings['devender_client_happy'] || 0 %>" data-suffix="">0</div>
+      <div class="label">Client Happy</div>
+    </div>
+    <div class="hero-stat">
+      <div class="num" data-count="<%= @settings['devender_year_experience'] || 0 %>" data-suffix="yr">0</div>
+      <div class="label">Experience</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  $(document).on('turbo:load', function() {
+    $('.num').each(function() {
+      var $this = $(this),
+          countTo = parseInt($this.attr('data-count')) || 0,
+          suffix = $this.attr('data-suffix') || "";
+      
+      if (countTo === 0) {
+        $this.html('0' + (suffix ? '<span>' + suffix + '</span>' : ''));
+        return;
+      }
+
+      $({ countNum: 0 }).animate({
+        countNum: countTo
+      },
+      {
+        duration: 2500,
+        easing: 'swing',
+        step: function() {
+          $this.html(Math.floor(this.countNum) + (suffix ? '<span>' + suffix + '</span>' : ''));
+        },
+        complete: function() {
+          $this.html(this.countNum + (suffix ? '<span>' + suffix + '</span>' : ''));
+        }
+      });
+    });
+  });
+</script>

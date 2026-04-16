@@ -1,0 +1,57 @@
+<footer id="footer">
+  <div class="footer-grid reveal">
+    <div class="footer-brand">
+      <h2>Devender</h2>
+      <p>Combining strategy, design, and technical engineering to transform the way you interact with your customers.</p>
+      <div class="social-links">
+        <a href="#" class="social-btn"><i class="lucide-instagram"></i></a>
+        <a href="#" class="social-btn"><i class="lucide-linkedin"></i></a>
+        <a href="#" class="social-btn"><i class="lucide-twitter"></i></a>
+      </div>
+    </div>
+    
+    <div class="footer-col">
+      <h4>Capabilities</h4>
+      <ul class="footer-links">
+        <li><a href="#services">Web Development</a></li>
+        <li><a href="#services">Mobile Apps</a></li>
+        <li><a href="#services">UI/UX Design</a></li>
+        <li><a href="#services">SaaS Solutions</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#work">Featured Work</a></li>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="mailto:hello@devender.id">Contact Us</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-col">
+      <h4>Office</h4>
+      <p style="font-size: 14px; line-height: 1.8; color: var(--text-dim);">
+        Depok, Indonesia<br>
+        Digital Nomads Ready<br>
+        hello@devender.id
+      </p>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <div>© <%= Time.now.year %> Devender Solution. All rights reserved.</div>
+    <div style="display: flex; gap: 24px;">
+      <a href="#" style="color: inherit; text-decoration: none;">Privacy Policy</a>
+      <a href="#" style="color: inherit; text-decoration: none;">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Initializing Lucide icons if they aren't already
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+</script>

@@ -1,0 +1,36 @@
+<section id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Services That<br /><span class="cyan">Actually Work.</span></h2>
+    </div>
+    <p class="services-desc">
+      We don't do cookie-cutter. Every service is tailored, strategic, and built to perform in the real world — not just look good in a mockup.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <% services = [
+      { id: "01", name: "Web Design & Development", icon: "monitor", text: "Pixel-perfect, blazing-fast websites built for conversion. From landing pages to full-stack apps." },
+      { id: "02", name: "Brand Identity", icon: "fingerprint", text: "Logos, systems, and visual languages that make your brand unmistakable across every touchpoint." },
+      { id: "03", name: "UI/UX Design", icon: "layout", text: "Interfaces so intuitive, users don't even notice they're being guided. Research-driven, human-centered." },
+      { id: "04", name: "SEO & Growth", icon: "trending-up", text: "Data-backed strategies to get you ranking, scaling, and converting at every stage of the funnel." },
+      { id: "05", name: "Digital Marketing", icon: "megaphone", text: "Social, ads, content — we run campaigns that don't just look good, they drive measurable results." },
+      { id: "06", name: "Mobile App Dev", icon: "smartphone", text: "Cross-platform apps that feel native, perform fast, and users actually want to open again tomorrow." }
+    ] %>
+
+    <% services.each_with_index do |s, idx| %>
+      <div class="service-card reveal" style="transition-delay:<%= 0.05 * idx %>s">
+        <div class="service-num"><%= s[:id] %></div>
+        <div class="service-icon" style="color:var(--white); margin-bottom:24px">
+          <i data-lucide="<%= s[:icon] %>" style="width:48px; height:48px"></i>
+        </div>
+        <div class="service-name"><%= s[:name] %></div>
+        <p class="service-text"><%= s[:text] %></p>
+        <div class="service-arrow">
+          <i data-lucide="arrow-right" style="width:14px"></i>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

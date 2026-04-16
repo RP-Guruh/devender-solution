@@ -1,0 +1,61 @@
+<div class="auth-page">
+  <!-- ── LEFT SIDE: BRANDING & VISION ── -->
+  <div class="auth-visual-side">
+    <div class="auth-visual-grid"></div>
+    <div class="auth-visual-glow"></div>
+    
+    <div class="visual-content">
+      <div class="visual-logo">
+        <%= image_tag "logo_devender.png", alt: "Devender Logo" %>
+      </div>
+      <h1 class="visual-title">Security is the foundation of innovation.</h1>
+      <p class="visual-desc">Initiate our multi-layer recovery protocol to regain access to your secure node. Your identity is our priority.</p>
+    </div>
+  </div>
+
+  <!-- ── RIGHT SIDE: RECOVERY FORM ── -->
+  <div class="auth-form-side">
+    <div class="form-container">
+      <div class="form-header">
+        <h2 class="form-title">Key Recovery</h2>
+        <p class="form-subtitle">Enter your verified identity email to trigger the protocol.</p>
+      </div>
+
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="auth-form-group">
+          <%= f.label :email, "Verified Email", class: "auth-label" %>
+          <div class="auth-input-wrap">
+            <i data-lucide="mail"></i>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "auth-input", placeholder: "identity@node.devender.id" %>
+          </div>
+        </div>
+
+        <div class="auth-actions">
+          <%= f.submit "Trigger Recovery Email", class: "auth-btn-main" %>
+        </div>
+      <% end %>
+
+      <div class="auth-links-grid">
+        <%- if controller_name != 'sessions' %>
+          <%= link_to new_session_path(resource_name), class: "auth-link-item" do %>
+            <i data-lucide="arrow-left"></i> Return to Authorization Node
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="auth-copyright">
+        © <%= Time.now.year %> Devender Solution. Sec: 100%
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  });
+</script>

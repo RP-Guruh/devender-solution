@@ -1,0 +1,95 @@
+<div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
+  <div>
+    <h1 style="font-family:'Plus Jakarta Sans', sans-serif; font-size:32px; font-weight:800; color:#fff; letter-spacing:-0.5px">Dashboard</h1>
+    <p style="color:var(--text-muted); margin-top:4px; font-size:14px">Welcome back. Here is what's happening today.</p>
+  </div>
+  <div style="display: flex; gap: 12px;">
+    <button style="background:transparent; border:1px solid var(--border-color); color:#fff; padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer">Download Report</button>
+    <button style="background:var(--accent); border:none; color:#000; padding:10px 20px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer">+ New Project</button>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 48px;">
+  <% [
+    { label: "Total Revenue", value: "$42,800", trend: "+12.5%", icon: "dollar-sign" },
+    { label: "Active Projects", value: "12", trend: "+2", icon: "briefcase" },
+    { label: "New Leads", value: "245", trend: "+18%", icon: "users" },
+    { label: "Success Rate", value: "98.2%", trend: "Stable", icon: "check-circle" }
+  ].each do |stat| %>
+    <div style="background:var(--card-bg); border:1px solid var(--border-color); padding:24px; border-radius:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px">
+        <div style="width:40px; height:40px; border-radius:10px; background:rgba(255,255,255,0.03); display:flex; align-items:center; justify-content:center; color:var(--text-muted)">
+          <i data-lucide="<%= stat[:icon] %>" style="width:20px"></i>
+        </div>
+        <div style="font-size:12px; font-weight:700; color:<%= stat[:trend].include?('+') ? '#00ff88' : 'var(--text-muted)' %>">
+          <%= stat[:trend] %>
+        </div>
+      </div>
+      <div style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px"><%= stat[:label] %></div>
+      <div style="font-family:'Plus Jakarta Sans', sans-serif; font-size:28px; font-weight:800; margin-top:8px; color:#fff"><%= stat[:value] %></div>
+    </div>
+  <% end %>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px;">
+  <!-- TABLE CARD -->
+  <div style="background:var(--card-bg); border:1px solid var(--border-color); border-radius:16px; overflow:hidden">
+    <div style="padding:24px; border-bottom:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center">
+      <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-size:16px; font-weight:700">Recent Projects</h3>
+      <a href="#" style="font-size:12px; color:var(--accent); text-decoration:none; font-weight:600">View All</a>
+    </div>
+    <div style="overflow-x:auto">
+      <table style="width:100%; border-collapse:collapse; font-size:14px">
+        <thead>
+          <tr style="text-align:left; color:var(--text-muted)">
+            <th style="padding:16px 24px; font-weight:600; font-size:12px; text-transform:uppercase">Project Name</th>
+            <th style="padding:16px 24px; font-weight:600; font-size:12px; text-transform:uppercase">Status</th>
+            <th style="padding:16px 24px; font-weight:600; font-size:12px; text-transform:uppercase">Budget</th>
+            <th style="padding:16px 24px; font-weight:600; font-size:12px; text-transform:uppercase">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% [
+            { name: "Ratu Madani Website", status: "In Progress", budget: "$4,500", date: "Apr 12, 2026", dot: "#00C8E8" },
+            { name: "Luxe Store UI/UX", status: "Completed", budget: "$8,200", date: "Apr 10, 2026", dot: "#00ff88" },
+            { name: "Orion Branding", status: "Pending", budget: "$2,800", date: "Apr 08, 2026", dot: "#ffaa00" }
+          ].each do |row| %>
+            <tr style="border-top:1px solid var(--border-color); transition: background 0.2s;">
+              <td style="padding:16px 24px; font-weight:600"><%= row[:name] %></td>
+              <td style="padding:16px 24px;">
+                <div style="display:flex; align-items:center; gap:8px">
+                  <div style="width:6px; height:6px; border-radius:50%; background:<%= row[:dot] %>"></div>
+                  <%= row[:status] %>
+                </div>
+              </td>
+              <td style="padding:16px 24px; color:var(--text-muted)"><%= row[:budget] %></td>
+              <td style="padding:16px 24px; color:var(--text-muted)"><%= row[:date] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SIDE ACTIVITY -->
+  <div style="background:var(--card-bg); border:1px solid var(--border-color); border-radius:16px; padding:24px">
+    <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-size:16px; font-weight:700; margin-bottom:24px">Activity Log</h3>
+    <div style="display:flex; flex-direction:column; gap:20px">
+      <% [
+        { user: "Admin", action: "Updated Ratu Madani project", time: "2h ago" },
+        { user: "System", action: "Server backup completed", time: "5h ago" },
+        { user: "Admin", action: "New client 'Lumena' added", time: "1d ago" }
+      ].each do |act| %>
+        <div style="display:flex; gap:12px">
+          <div style="width:32px; height:32px; border-radius:8px; background:rgba(255,255,255,0.03); display:flex; align-items:center; justify-content:center; flex-shrink:0">
+            <i data-lucide="bell" style="width:14px; color:var(--text-muted)"></i>
+          </div>
+          <div>
+            <div style="font-size:13px; font-weight:600"><%= act[:action] %></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px"><%= act[:time] %> by <%= act[:user] %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

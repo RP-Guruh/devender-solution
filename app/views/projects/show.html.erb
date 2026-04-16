@@ -1,0 +1,78 @@
+<section id="hero" style="min-height: 80vh;">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow" style="background: radial-gradient(circle, <%= @project[:color] %>1F 0%, transparent 65%);"></div>
+
+  <div class="reveal">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Case Study · <%= @project[:tag] %>
+    </div>
+
+    <h1 class="hero-headline">
+      <%= @project[:title].split(' ').first %><br />
+      <span class="cyan"><%= @project[:title].split(' ')[1..].join(' ') %></span>
+    </h1>
+
+    <div class="hero-sub-row">
+      <p class="hero-desc">
+        <%= @project[:description] %>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="details" style="background: var(--gray); padding-top: 0;">
+  <div class="work-grid" style="margin-top:-100px; position:relative; z-index:2">
+    <div class="admin-card" style="grid-column: span 12; padding: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+      <div>
+        <div class="section-label">The Challenge</div>
+        <h3 style="font-family:var(--font-display); font-size:32px; font-weight:700; margin-bottom:24px">Building a dynamic travel ecosystem.</h3>
+        <p style="color:var(--muted); line-height:1.8">
+          The goal was to create a platform that not only looks professional but also handles complex booking logic and provides a seamless management experience for the staff.
+        </p>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px">
+        <div class="admin-card" style="background:var(--black); border-color:rgba(255,255,255,0.05)">
+          <div class="section-label">Core Tech</div>
+          <ul style="list-style:none; margin-top:15px; font-size:14px; color:var(--muted)">
+            <li>• Ruby on Rails</li>
+            <li>• PostgreSQL</li>
+            <li>• Alpine.js</li>
+          </ul>
+        </div>
+        <div class="admin-card" style="background:var(--black); border-color:rgba(255,255,255,0.05)">
+          <div class="section-label">Timeline</div>
+          <div style="font-family:var(--font-display); font-size:24px; font-weight:800; margin-top:15px">8 Weeks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="visuals">
+  <div class="services-header">
+    <div>
+      <div class="section-label">Deliverables</div>
+      <h2 class="section-title">Visual <span class="cyan">Execution.</span></h2>
+    </div>
+  </div>
+
+  <div class="work-grid">
+    <div class="work-card reveal" style="grid-column: span 12; aspect-ratio: 21/9; display: flex; align-items: center; justify-content: center; background: <%= @project[:color] %>1F;">
+      <% if @project[:logo] %>
+        <%= image_tag @project[:logo], style: "height:120px; object-fit:contain" %>
+      <% else %>
+        <i data-lucide="image" style="width:100px; height:100px; color:var(--cyan); opacity:0.3"></i>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section id="cta" style="background: var(--black);">
+  <div class="cta-tag">More Projects</div>
+  <h2 class="cta-title">Checkout <span class="outline">Others.</span></h2>
+  <div class="cta-actions">
+    <%= link_to "Return to Home", root_path, class: "btn-ghost" %>
+  </div>
+</section>

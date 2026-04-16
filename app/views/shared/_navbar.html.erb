@@ -1,0 +1,27 @@
+<nav id="navbar">
+  <%= link_to root_path, class: "nav-logo" do %>
+    <h2>Devender<span>.</span></h2>
+  <% end %>
+  
+  <ul class="nav-links">
+    <li><a href="#services">Capabilities</a></li>
+    <li><a href="#work">Featured Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+    <% if user_signed_in? %>
+      <li><%= link_to "Dashboard", admin_dashboard_path, class: "nav-link" %></li>
+      <li><%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn-logout", style: "color: #ff4d4d; border: 1px solid rgba(255, 77, 77, 0.2); padding: 8px 16px; border-radius: 100px; font-size: 11px; text-transform: uppercase; font-weight: 700; text-decoration: none;" %></li>
+    <% else %>
+      <li><%= link_to "Get Started", new_user_session_path, class: "nav-cta" %></li>
+    <% end %>
+  </ul>
+  
+  <button class="nav-toggle" id="mobile-menu-btn" style="display: none;">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<style>
+  .nav-logo h2 span { color: var(--cyan); }
+  .btn-logout:hover { background: rgba(255, 77, 77, 0.1); border-color: #ff4d4d; }
+</style>

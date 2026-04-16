@@ -1,0 +1,46 @@
+<div class="auth-card" style="padding: 48px 40px; border-radius: 24px; max-width: 500px;">
+  <div style="text-align:center; margin-bottom:32px">
+    <div class="section-label" style="justify-content:center; letter-spacing:3px; font-size:9px">Account Architecture</div>
+    <h2 style="font-family:var(--font-display); font-size:20px; font-weight:800; color:var(--white); margin-top:12px">Edit Profile</h2>
+  </div>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div style="margin-bottom:20px">
+      <label style="display:block; font-size:10px; font-weight:700; text-transform:uppercase; color:var(--cyan); margin-bottom:8px">Registered Email</label>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "auth-input", style: "margin:0" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div style="font-size:11px; color:var(--muted); margin-bottom:20px">Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div style="margin-bottom:20px">
+      <label style="display:block; font-size:10px; font-weight:700; text-transform:uppercase; color:var(--cyan); margin-bottom:8px">New Password <i style="text-transform:none; opacity:0.5">(leave blank to keep current)</i></label>
+      <%= f.password_field :password, autocomplete: "new-password", class: "auth-input", style: "margin:0" %>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <label style="display:block; font-size:10px; font-weight:700; text-transform:uppercase; color:var(--cyan); margin-bottom:8px">Confirm New Password</label>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "auth-input", style: "margin:0" %>
+    </div>
+
+    <div style="margin-bottom:24px; padding: 20px; background: rgba(0, 200, 232, 0.05); border: 1px solid rgba(0, 200, 232, 0.2); border-radius: 12px;">
+      <label style="display:block; font-size:10px; font-weight:700; text-transform:uppercase; color:var(--white); margin-bottom:8px">Verification Needed</label>
+      <p style="font-size:11px; color:var(--muted); margin-bottom:12px">Enter current password to save changes.</p>
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "auth-input", style: "margin:0; background:rgba(0,0,0,0.3)" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Update Profile", class: "auth-btn", style: "height:54px; font-size:14px; font-weight:800; background:var(--white); color:var(--black); border-radius:12px" %>
+    </div>
+  <% end %>
+
+  <div style="margin-top:40px; text-align:center; padding-top:24px; border-top:1px solid rgba(255,255,255,0.05)">
+    <h3 style="font-size:13px; color:var(--white); margin-bottom:16px">Danger Zone</h3>
+    <%= button_to "Deactivate Account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "btn-ghost", style: "color:#ff4444; border-color:rgba(255,68,68,0.2); font-size:11px; padding:8px 16px" %>
+    <br/>
+    <%= link_to "Go Back", :back, style: "font-size:12px; color:var(--muted); text-decoration:none" %>
+  </div>
+</div>

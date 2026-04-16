@@ -1,0 +1,46 @@
+<section id="work">
+  <div class="work-header reveal">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Selected <span class="cyan">Work.</span></h2>
+  </div>
+
+  <div class="work-accordion">
+    <% works = [
+      { id: "ratu-madani", tag: "Travel · Custom CMS", title: "Ratu Madani Tour", bg: "linear-gradient(135deg, #001f2d, #004a4a)" },
+      { id: "luxe-store", tag: "E-Commerce · Web Design", title: "Luxe Store Redesign", bg: "linear-gradient(135deg, #0d1f2d, #1a3a4a)" },
+      { id: "orion", tag: "Brand Identity", title: "Orion Brand System", bg: "linear-gradient(135deg, #1a0a2e, #2d1a4a)" },
+      { id: "fintech", tag: "UI/UX · Mobile", title: "FinTech App UI", bg: "linear-gradient(135deg, #0a1f0a, #1a3a1a)" }
+    ] %>
+
+    <% works.each_with_index do |w, idx| %>
+      <div class="accordion-item reveal" style="transition-delay:<%= 0.1 * idx %>s">
+        <div class="accordion-header">
+          <div class="accordion-row">
+            <span class="acc-num"><%= (idx + 1).to_s.rjust(2, '0') %></span>
+            <div class="acc-title-wrap">
+              <h3 class="acc-title"><%= w[:title] %></h3>
+              <span class="acc-tag"><%= w[:tag] %></span>
+            </div>
+            <div class="acc-arrow">
+              <i data-lucide="plus" class="icon-plus"></i>
+            </div>
+          </div>
+          
+          <div class="accordion-visual">
+            <div class="preview-container" style="background: <%= w[:bg] %>">
+              <div class="preview-grid"></div>
+              <% if w[:id] == 'ratu-madani' %>
+                <%= image_tag "LOGO_BG_PUTIH-removebg-preview.png", class: "preview-img" %>
+              <% else %>
+                <i data-lucide="image" class="preview-placeholder"></i>
+              <% end %>
+              <%= link_to project_path(w[:id]), class: "preview-overlay" do %>
+                <span>View Case Study</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

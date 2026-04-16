@@ -1,0 +1,90 @@
+<div class="auth-page">
+  <!-- ── LEFT SIDE: BRANDING & VISION ── -->
+  <div class="auth-visual-side">
+    <div class="auth-visual-grid"></div>
+    <div class="auth-visual-glow"></div>
+    
+    <div class="visual-content">
+      <div class="visual-logo">
+        <%= image_tag "logo_devender.png", alt: "Devender Logo" %>
+      </div>
+      <h1 class="visual-title">Building the next generation of digital infrastructure.</h1>
+      <p class="visual-desc">Secure, scalable, and intelligent solutions for modern enterprises. Join our network of elite digital agents.</p>
+    </div>
+  </div>
+
+  <!-- ── RIGHT SIDE: LOGIN FORM ── -->
+  <div class="auth-form-side">
+    <div class="form-container">
+      <div class="form-header">
+        <h2 class="form-title">System Entry</h2>
+        <p class="form-subtitle">Enter your credentials to access the infrastructure.</p>
+      </div>
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="auth-form-group">
+          <%= f.label :email, "Identity Email", class: "auth-label" %>
+          <div class="auth-input-wrap">
+            <i data-lucide="mail"></i>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "auth-input", placeholder: "identity@node.devender.id" %>
+          </div>
+        </div>
+
+        <div class="auth-form-group">
+          <%= f.label :password, "Security Key", class: "auth-label" %>
+          <div class="auth-input-wrap">
+            <i data-lucide="shield-keyhole"></i>
+            <%= f.password_field :password, autocomplete: "current-password", class: "auth-input", placeholder: "••••••••" %>
+          </div>
+        </div>
+
+        <div class="auth-checkbox-row">
+          <label class="auth-checkbox-label">
+            <%= f.check_box :remember_me, style: "display:none" %>
+            <div class="custom-check"></div>
+            <span>Stay Authorized</span>
+          </label>
+          <% if devise_mapping.recoverable? %>
+            <%= link_to "Reset Key", new_password_path(resource_name), class: "forgot-link" %>
+          <% end %>
+        </div>
+
+        <div class="auth-actions">
+          <%= f.submit "Initialize Authorization", class: "auth-btn-main" %>
+        </div>
+      <% end %>
+
+      <div class="auth-links-grid">
+        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+          <%= link_to new_registration_path(resource_name), class: "auth-link-item" do %>
+            <i data-lucide="user-plus"></i> New agent? Enroll now
+          <% end %>
+        <% end %>
+        
+        <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+          <%= link_to new_confirmation_path(resource_name), class: "auth-link-item" do %>
+            <i data-lucide="refresh-cw"></i> Resend confirmation
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="auth-copyright">
+        © <%= Time.now.year %> Devender Solution. Node: LB-X1
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+    
+    // Custom checkbox behavior
+    $('.auth-checkbox-label').on('click', function() {
+      var cb = $(this).find('input[type="checkbox"]');
+      cb.prop('checked', !cb.prop('checked'));
+    });
+  });
+</script>

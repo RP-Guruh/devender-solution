@@ -1,0 +1,48 @@
+<section id="testimonials">
+  <div class="section-header reveal">
+    <span class="section-label">Client Love</span>
+    <h2 class="section-title">What They <span class="cyan">Say.</span></h2>
+  </div>
+  <div class="testimonials-track">
+    <div class="testimonial-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Devender Solution completely transformed our online presence. The new site is fast, beautiful, and our leads doubled in 3 months."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">
+          <%= image_tag "logo_client_white.png", alt: "Client Logo", style: "width: 100%; height: 100%; object-fit: contain; border-radius: 50%;" %>
+        </div>
+        <div>
+          <div class="testi-name">Ahmad Rizki</div>
+          <div class="testi-role">CEO · First Client</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="testimonial-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Shipping on time and under budget? In this industry? These guys are different. The app is smooth, users love it, we love it."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">BP</div>
+        <div>
+          <div class="testi-name">Budi Pratama</div>
+          <div class="testi-role">CTO · PayFlow App</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Duplicate for marquee effect if needed, or Rails can loop -->
+    <% 2.times do %>
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"They actually listened. Not just to what we asked for, but to what our business actually needed. The result blew our expectations."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SW</div>
+          <div>
+            <div class="testi-name">Sarah Wijaya</div>
+            <div class="testi-role">Founder · Lumena Studio</div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

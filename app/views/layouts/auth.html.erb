@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Devender — Secure Access</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    
+    <style>
+      /* Reset for Auth Layout */
+      html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        width: 100vw !important;
+        overflow: hidden !important;
+        background: #020408 !important;
+        scroll-behavior: auto !important;
+      }
+      
+      body::before { display: none !important; }
+      #cursor, #cursor-ring, #navbar, footer { display: none !important; }
+
+      @media (max-width: 1024px) {
+        html, body { overflow-y: auto !important; height: auto !important; }
+      }
+    </style>
+  </head>
+
+  <body class="auth-layout <%= controller_name %>-page <%= action_name %>-page">
+    <%= yield %>
+
+    <script>
+      $(document).ready(function () {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      });
+    </script>
+  </body>
+</html>

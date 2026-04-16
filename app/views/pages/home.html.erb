@@ -1,0 +1,127 @@
+<%= render 'hero' %>
+
+<% 
+  services_str = @settings['devender_services'] || "Web Design | Brand Identity | UI / UX | Web Development | Mobile Apps"
+  service_items = services_str.split('|').map(&:strip)
+%>
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee">
+    <% 2.times do %>
+      <% service_items.each do |item| %>
+        <div class="marquee-item"><%= item %> <span class="sep">✦</span></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'services' %>
+<%= render 'work' %>
+<%= render 'methodology' %>
+<%= render 'about' %>
+
+<section id="testimonials">
+  <div class="section-label reveal">Client Love</div>
+  <h2 class="section-title reveal">What They <span class="cyan">Say.</span></h2>
+  <div class="testimonials-track">
+    <% [
+      { name: "Ahmad Rizki", role: "CEO · TechNusa ID", text: "Devender Solution completely transformed our online presence. The new site is fast, beautiful, and our leads doubled in 3 months.", avatar: "AR" },
+      { name: "Sarah Wijaya", role: "Founder · Lumena Studio", text: "They actually listened. Not just to what we asked for, but to what our business actually needed. The result blew our expectations.", avatar: "SW" },
+      { name: "Budi Pratama", role: "CTO · PayFlow App", text: "Shipping on time and under budget? In this industry? These guys are different. The app is smooth, users love it, we love it.", avatar: "BP" },
+      { name: "Diana Maharani", role: "Director · Vela Interiors", text: "Our brand identity went from dated to stunning. Clients keep asking 'who did your branding?' — and we proudly refer them every time.", avatar: "DM" }
+    ].each do |t| %>
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"<%= t[:text] %>"</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><%= t[:avatar] %></div>
+          <div>
+            <div class="testi-name"><%= t[:name] %></div>
+            <div class="testi-role"><%= t[:role] %></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <!-- duplicate for continuous marquee -->
+    <% [
+      { name: "Ahmad Rizki", role: "CEO · TechNusa ID", text: "Devender Solution completely transformed our online presence. The new site is fast, beautiful, and our leads doubled in 3 months.", avatar: "AR" },
+      { name: "Sarah Wijaya", role: "Founder · Lumena Studio", text: "They actually listened. Not just to what we asked for, but to what our business actually needed. The result blew our expectations.", avatar: "SW" }
+    ].each do |t| %>
+      <div class="testimonial-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"<%= t[:text] %>"</p>
+        <div class="testi-author">
+          <div class="testi-avatar"><%= t[:avatar] %></div>
+          <div>
+            <div class="testi-name"><%= t[:name] %></div>
+            <div class="testi-role"><%= t[:role] %></div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" style="padding: 160px 48px; position:relative;">
+  <div style="position:absolute; top:50%; left:50%; width:800px; height:800px; background:radial-gradient(circle, rgba(0, 200, 232, 0.08) 0%, transparent 70%); transform:translate(-50%, -50%); pointer-events:none; z-index:0"></div>
+
+  <div class="cta-tag reveal">Ready to start?</div>
+  <h2 class="cta-title reveal" style="font-size: clamp(64px, 10vw, 130px); margin-bottom: 60px;">
+    Let's Build<br />
+    Something <span class="outline">Iconic.</span>
+  </h2>
+  
+  <div class="cta-actions reveal">
+    <a href="mailto:hello@devender.id" class="btn-primary" style="font-size:18px; padding:24px 60px; border-radius:12px">Launch Your Project</a>
+    <a href="#" class="btn-ghost" style="font-size:18px; padding:24px 48px; border-radius:12px">
+      Book a Call
+      <i data-lucide="phone" style="width:20px; margin-left:12px"></i>
+    </a>
+  </div>
+  <p class="cta-email reveal" style="margin-top:40px; color:var(--muted)">Direct Line — <a href="mailto:hello@devender.id" style="color:var(--cyan); text-decoration:none; font-weight:700">hello@devender.id</a></p>
+</section>
+
+<script>
+  $(document).ready(function() {
+    // ── COUNTER ANIMATION
+    function animateCounter($el, end, suffix) {
+      $({ count: 0 }).animate({ count: end }, {
+        duration: 2000,
+        easing: 'swing',
+        step: function () {
+          $el.text(Math.floor(this.count) + suffix);
+        },
+        complete: function () {
+          $el.text(end + suffix);
+        }
+      });
+    }
+
+    var countered = false;
+
+    // ── MAGNETIC BUTTONS (Buttons)
+    $('.btn-primary, .btn-ghost').on('mousemove', function (e) {
+      var rect = this.getBoundingClientRect();
+      var x = e.clientX - rect.left - rect.width / 2;
+      var y = e.clientY - rect.top - rect.height / 2;
+      $(this).css('transform', 'translate(' + x * 0.15 + 'px, ' + y * 0.25 + 'px)');
+    }).on('mouseleave', function () {
+      $(this).css('transform', '');
+    });
+
+    // ── ACCORDION TOGGLE
+    $('.accordion-header').on('click', function(e) {
+      // Don't toggle if clicking a link inside (like View Case Study)
+      if ($(e.target).closest('a').length && !$(e.target).closest('.accordion-header').length) return;
+
+      var $item = $(this).closest('.accordion-item');
+      var isActive = $item.hasClass('is-active');
+      
+      $('.accordion-item').removeClass('is-active');
+      if (!isActive) {
+        $item.addClass('is-active');
+      }
+    });
+  });
+</script>

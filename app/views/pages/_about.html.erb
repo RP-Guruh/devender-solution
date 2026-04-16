@@ -1,0 +1,38 @@
+<section id="why">
+  <div class="why-visual reveal">
+    <div class="why-circle">
+      <div class="why-inner">
+        <div class="why-core">
+          <div class="why-core-num">7<span>+</span></div>
+          <div class="why-core-label">Years Active</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-label reveal">Why Devender</div>
+    <h2 class="section-title reveal">No Fluff.<br /><span class="cyan">Just Results.</span></h2>
+    
+    <div class="why-list">
+      <% reasons = [
+        { icon: "zap", title: "Speed Without Sacrifice", text: "We move fast because our process is tight. Quick doesn't mean sloppy — it means we've done this enough to know what matters." },
+        { icon: "clock", title: "Transparent Collaboration", text: "You're always in the loop. Real-time updates, shared docs, and zero surprise invoices." },
+        { icon: "star", title: "Quality-First Mindset", text: "We sweat the small stuff — performance, accessibility, cross-device consistency. Because details win." },
+        { icon: "users", title: "Long-Term Partnership", text: "We think of clients as partners. Many of our best relationships started as one project and grew into something bigger." }
+      ] %>
+
+      <% reasons.each_with_index do |r, idx| %>
+        <div class="why-item reveal" style="transition-delay:<%= 0.1 * idx %>s">
+          <div class="why-icon">
+            <i data-lucide="<%= r[:icon] %>" style="width:18px; height:18px"></i>
+          </div>
+          <div>
+            <div class="why-item-title"><%= r[:title] %></div>
+            <p class="why-item-text"><%= r[:text] %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
