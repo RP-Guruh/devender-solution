@@ -30,7 +30,7 @@
         <% end %>
       <% end %>
     </div>
-
+          
   <% end %>
 </div>
 
@@ -38,5 +38,6 @@
 <div class="admin-table-wrap">
   <turbo-frame id="results" target="_top">
     <%= render "table", settings: @settings %>
+    <%= render_pagination(frame_id: "results") %>
   </turbo-frame>
 </div>

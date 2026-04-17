@@ -7,3 +7,17 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+
+settings = []
+
+10000.times do |i|
+  settings << {
+    key: "key_#{i + 1}",
+    value: "value_#{i + 1}",
+    created_at: Time.current,
+    updated_at: Time.current
+  }
+end
+
+Setting.insert_all(settings)

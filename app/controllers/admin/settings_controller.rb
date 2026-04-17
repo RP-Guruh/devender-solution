@@ -2,13 +2,13 @@ class Admin::SettingsController < ApplicationController
   before_action :authenticate_user!
   layout 'admin'
   before_action :set_setting, only: %i[ show edit update destroy ]
+  include Paginatable
 
   # GET /settings or /settings.json
   def index
     @q = Setting.ransack(params[:q])
-    scope = @q.result(distinct: true).order(created_at: :desc)
-
-    @settings = scope.all
+    scope = @q.result(distinct: true)
+    @settings = paginate(scope, per_page: 10)
   end
 
   # GET /settings/1 or /settings/1.json
