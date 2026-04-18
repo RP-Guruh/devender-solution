@@ -1,0 +1,94 @@
+<%= form_with(model: [:admin, company], html: { enctype: "multipart/form-data" }) do |form| %>
+  <% if company.errors.any? %>
+    <div class="form-error-box">
+      <div class="form-error-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div>
+        <h2 class="form-error-title"><%= pluralize(company.errors.count, "error") %> prohibited this company from being saved:</h2>
+        <ul class="form-error-list">
+          <% company.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-input", placeholder: "e.g. Acme Corporation" %>
+    <p class="form-hint">Full legal name of the company.</p>
+  </div>
+
+  <%# === Logo Upload === %>
+  <div class="form-group">
+    <%= form.label :logo, class: "form-label" %>
+
+    <div style="display: flex; align-items: center; gap: 20px;">
+
+      <%# Current logo preview %>
+      <div style="flex-shrink: 0; width: 72px; height: 72px; border-radius: 12px; overflow: hidden; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;" id="logo-preview-wrap">
+        <% if company.logo.attached? %>
+          <%= image_tag company.logo.variant(:thumb),
+                id: "logo-preview-img",
+                style: "width: 100%; height: 100%; object-fit: cover;" %>
+        <% else %>
+          <i data-lucide="building-2" id="logo-preview-icon" style="width: 28px; height: 28px; color: var(--text-muted); opacity: 0.5;"></i>
+        <% end %>
+      </div>
+
+      <%# File input styled %>
+      <div style="flex: 1;">
+        <%= form.file_field :logo,
+              accept: "image/*",
+              style: "display: block; width: 100%; font-size: 13px; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.15); border-radius: 10px; padding: 10px 14px; cursor: pointer;",
+              onchange: "previewLogo(this)" %>
+        <p class="form-hint" style="margin-top: 8px;">PNG, JPG, GIF up to 5MB. Optimal size 100×100px.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function previewLogo(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const wrap = document.getElementById('logo-preview-wrap');
+          const icon = document.getElementById('logo-preview-icon');
+          if (icon) icon.remove();
+          let img = document.getElementById('logo-preview-img');
+          if (!img) {
+            img = document.createElement('img');
+            img.id = 'logo-preview-img';
+            img.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
+            wrap.appendChild(img);
+          }
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+
+  <div class="form-group">
+    <%= form.label :industry, class: "form-label" %>
+    <%= form.text_field :industry, class: "form-input", placeholder: "e.g. Technology, Finance, Healthcare" %>
+    <p class="form-hint">Primary industry or sector the company operates in.</p>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :year, class: "form-label" %>
+    <%= form.number_field :year, class: "form-input", placeholder: "e.g. 2010" %>
+    <p class="form-hint">Year the company was founded.</p>
+  </div>
+
+  <%= render "shared/admin/confirm_dialog",
+        form: form,
+        title: "Konfirmasi Perubahan",
+        description: "Apakah Anda yakin ingin menyimpan data company ini? Perubahan akan langsung diterapkan ke sistem.",
+        trigger_label: "Save Company",
+        confirm_label: "Ya, Simpan",
+        cancel_path: admin_companies_path %>
+
+<% end %>

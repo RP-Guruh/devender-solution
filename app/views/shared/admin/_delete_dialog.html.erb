@@ -1,0 +1,133 @@
+<%#
+  ── SHARED: DELETE DIALOG PARTIAL ───────────────────────────────────────
+  Gunakan untuk konfirmasi penghapusan data. User wajib mengetik keyword
+  (default: "DELETE") sebelum tombol hapus menjadi aktif.
+
+  Wajib:
+    delete_path   → Path untuk button_to method: :delete
+
+  Opsional:
+    resource_name → Nama resource yg ditampilkan     (default: "item ini")
+    title         → Judul dialog                     (default: "Hapus Item")
+    description   → Override deskripsi penuh         (default: nil = auto-generate)
+    keyword       → Kata yang harus diketik          (default: "DELETE")
+    trigger_class → Class tombol trigger             (default: "btn-icon btn-admin-danger")
+
+  Contoh:
+    render "shared/admin/delete_dialog",
+          delete_path: [:admin, setting],
+          resource_name: setting.key,
+          title: "Hapus Pengaturan" 
+
+%>
+
+<%
+  resource_name = local_assigns.fetch(:resource_name, "item ini")
+  title         = local_assigns.fetch(:title,         "Hapus Item")
+  description   = local_assigns.fetch(:description,   nil)
+  keyword       = local_assigns.fetch(:keyword,       "DELETE")
+  trigger_class = local_assigns.fetch(:trigger_class, "btn-icon btn-admin-danger")
+%>
+
+<div data-controller="dialog" data-action="click->dialog#backdropClose">
+
+  <%# ── Trigger: tombol trash ── %>
+  <button type="button"
+          class="<%= trigger_class %>"
+          title="Hapus"
+          data-action="dialog#open">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="3 6 5 6 21 6"/>
+      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+      <path d="M10 11v6"/><path d="M14 11v6"/>
+      <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+    </svg>
+  </button>
+
+  <%# ── Delete Confirmation Dialog ── %>
+  <dialog data-dialog-target="dialog" class="confirm-dialog confirm-dialog-danger">
+    <div class="confirm-dialog-inner confirm-dialog-inner-danger">
+
+      <%# Red glow %>
+      <div class="confirm-glow confirm-glow-danger" aria-hidden="true"></div>
+
+      <%# Icon: trash %>
+      <div class="confirm-icon-wrap confirm-icon-wrap-danger">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 6 5 6 21 6"/>
+          <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+          <path d="M10 11v6"/><path d="M14 11v6"/>
+          <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+        </svg>
+      </div>
+
+      <%# Content + confirmation input %>
+      <div class="confirm-content" data-controller="confirmation">
+
+        <h3 class="confirm-title"><%= title %></h3>
+        <p class="confirm-desc">
+          <% if description %>
+            <%= description %>
+          <% else %>
+            Tindakan ini akan menghapus
+            <span class="confirm-highlight"><%= resource_name %></span>
+            secara permanen dan tidak dapat dibatalkan.
+          <% end %>
+        </p>
+
+        <%# Confirmation input: user harus ketik keyword %>
+        <div class="confirm-input-group">
+          <label class="confirm-input-label">
+            Ketik <span class="confirm-keyword"><%= keyword %></span> untuk konfirmasi
+          </label>
+          <input type="text"
+                 class="confirm-input"
+                 placeholder="<%= keyword %>"
+                 autocomplete="off"
+                 data-confirmation-target="input"
+                 data-confirmation-content="<%= keyword %>"
+                 data-action="input->confirmation#check" />
+        </div>
+
+        <%# Actions %>
+        <div class="confirm-actions confirm-actions-stacked">
+
+          <button type="button"
+                  class="btn-admin btn-admin-secondary confirm-btn-cancel"
+                  data-action="dialog#close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            Batal
+          </button>
+
+          <%# Real delete via Turbo %>
+          <%= button_to delete_path,
+                method: :delete,
+                class: "btn-admin btn-admin-danger confirm-btn-submit",
+                disabled: true,
+                data: { confirmation_target: "item" } do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            </svg>
+            Ya, Hapus Sekarang
+          <% end %>
+
+        </div>
+
+      </div><%# end data-controller="confirmation" %>
+
+    </div>
+  </dialog>
+
+</div>

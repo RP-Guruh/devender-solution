@@ -1,0 +1,82 @@
+<% content_for :page_title, "Company Details" %>
+<div class="admin-header">
+  <div>
+    <%= link_to admin_companies_path, style: "text-decoration: none; display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 13px; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;" do %>
+      <i data-lucide="arrow-left" style="width: 14px"></i>
+      <span>Back to Companies</span>
+    <% end %>
+    <h1 class="page-title" style="font-size: 32px;">Company Details</h1>
+  </div>
+  <div style="display: flex; gap: 12px;">
+    <%= link_to edit_admin_company_path(@company), class: "btn-admin btn-admin-primary" do %>
+      <i data-lucide="edit-3" style="width: 18px"></i>
+      <span>Edit Company</span>
+    <% end %>
+    <%= render "shared/admin/delete_dialog",
+          delete_path: [:admin, @company],
+          resource_name: @company.name,
+          title: "Hapus Company" %>
+  </div>
+</div>
+
+<% if notice.present? %>
+  <div style="background: rgba(0, 200, 232, 0.1); border: 1px solid rgba(0, 200, 232, 0.2); color: var(--cyan); padding: 12px 20px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; display: flex; align-items: center; gap: 12px;">
+    <i data-lucide="check-circle" style="width: 18px"></i>
+    <%= notice %>
+  </div>
+<% end %>
+
+<div class="admin-card">
+
+  <%# === Hero: Logo + Company Identity === %>
+  <div style="display: flex; align-items: center; gap: 32px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 36px;">
+
+    <%# Logo Avatar %>
+    <div style="flex-shrink: 0; width: 100px; height: 100px; border-radius: 16px; overflow: hidden; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;">
+      <% if @company.logo.attached? %>
+        <%= image_tag @company.logo.variant(:thumb),
+              style: "width: 100%; height: 100%; object-fit: cover;" %>
+      <% else %>
+        <i data-lucide="building-2" style="width: 40px; height: 40px; color: var(--text-muted); opacity: 0.5;"></i>
+      <% end %>
+    </div>
+
+    <%# Name & Industry %>
+    <div style="flex: 1;">
+      <p style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px;">Company</p>
+      <h2 style="font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 10px;"><%= @company.name %></h2>
+      <span class="badge-key" style="font-size: 13px; padding: 5px 12px;"><%= @company.industry.presence || "—" %></span>
+    </div>
+
+  
+  </div>
+
+  <%# === Detail Grid === %>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+    <div>
+      <h3 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px;">Company Name</h3>
+      <p style="font-size: 16px; font-weight: 600; color: #fff;"><%= @company.name %></p>
+    </div>
+    <div>
+      <h3 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px;">Industry</h3>
+      <span class="badge-key" style="font-size: 13px; padding: 5px 12px;"><%= @company.industry.presence || "—" %></span>
+    </div>
+    <div>
+      <h3 style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px;">Project Year</h3>
+      <p style="font-size: 16px; font-weight: 600; color: #fff;"><%= @company.year || "—" %></p>
+    </div>
+  </div>
+
+  <%# === Timestamps Footer === %>
+  <div style="margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; gap: 32px;">
+    <div>
+      <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Created</span>
+      <p style="font-size: 13px; color: #fff; margin-top: 4px;"><%= @company.created_at.strftime("%B %d, %Y at %H:%M") %></p>
+    </div>
+    <div>
+      <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Last Updated</span>
+      <p style="font-size: 13px; color: #fff; margin-top: 4px;"><%= @company.updated_at.strftime("%B %d, %Y at %H:%M") %></p>
+    </div>
+  </div>
+
+</div>

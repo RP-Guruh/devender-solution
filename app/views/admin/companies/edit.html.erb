@@ -1,0 +1,20 @@
+<% content_for :page_title, "Edit Company" %>
+<div class="admin-header">
+  <div>
+    <%= link_to admin_companies_path, style: "text-decoration: none; display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 13px; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;" do %>
+      <i data-lucide="arrow-left" style="width: 14px"></i>
+      <span>Back to Companies</span>
+    <% end %>
+    <h1 class="page-title" style="font-size: 32px;">Edit Company</h1>
+  </div>
+  <div style="display: flex; gap: 12px;">
+    <%= link_to [:admin, @company], class: "btn-admin btn-admin-secondary" do %>
+      <i data-lucide="eye" style="width: 18px"></i>
+      <span>View Company</span>
+    <% end %>
+  </div>
+</div>
+
+<div class="admin-card">
+  <%= render "form", company: @company %>
+</div>

@@ -1,12 +1,12 @@
-<% content_for :page_title, "Settings" %>
+<% content_for :page_title, "Companies" %>
 <div class="admin-header">
   <div>
-    <h1 class="page-title" style="font-size: 32px; margin-bottom: 8px;">System Settings</h1>
-    <p style="color: var(--text-muted); font-size: 14px;">Manage your application's global configuration and variables.</p>
+    <h1 class="page-title" style="font-size: 32px; margin-bottom: 8px;">Companies</h1>
+    <p style="color: var(--text-muted); font-size: 14px;">Manage all registered companies in the system.</p>
   </div>
-  <%= link_to new_admin_setting_path, class: "btn-admin btn-admin-primary" do %>
+  <%= link_to new_admin_company_path, class: "btn-admin btn-admin-primary" do %>
     <i data-lucide="plus-circle" style="width: 18px"></i>
-    <span>New Setting</span>
+    <span>New Company</span>
   <% end %>
 </div>
 
@@ -17,17 +17,15 @@
   </div>
 <% end %>
 
-
-
 <div class="search-bar-wrap">
   <%= search_form_for [:admin, @q], html: { class: "search-form search_input" }, method: :get, data: {turbo_frame: "results", controller: "search" } do |f| %>
     <div class="search-input-group">
       <i data-lucide="search" class="search-icon"></i>
-      <%= f.search_field :key_cont, 
+      <%= f.search_field :name_cont, 
                          class: "search-input", 
-                         placeholder: "Filter configuration keys...", data: { action: "input->search#submit"} %>
-      <% if params[:q].present? && params[:q][:key_cont].present? %>
-        <%= link_to admin_settings_path, class: "clear-search", title: "Clear filter" do %>
+                         placeholder: "Search by company name...", data: { action: "input->search#submit"} %>
+      <% if params[:q].present? && params[:q][:name_cont].present? %>
+        <%= link_to admin_companies_path, class: "clear-search", title: "Clear filter" do %>
           <i data-lucide="x"></i>
         <% end %>
       <% end %>
@@ -39,7 +37,9 @@
 
 <div class="admin-table-wrap">
   <turbo-frame id="results" target="_top">
-    <%= render "table", settings: @settings %>
+    <%= render "table", companies: @companies %>
     <%= render_pagination(frame_id: "results") %>
   </turbo-frame>
 </div>
+
+

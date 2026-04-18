@@ -1,0 +1,14 @@
+<% content_for :page_title, "New Company" %>
+<div class="admin-header">
+  <div>
+    <%= link_to admin_companies_path, style: "text-decoration: none; display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 13px; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;" do %>
+      <i data-lucide="arrow-left" style="width: 14px"></i>
+      <span>Back to Companies</span>
+    <% end %>
+    <h1 class="page-title" style="font-size: 32px;">Create New Company</h1>
+  </div>
+</div>
+
+<div class="admin-card">
+  <%= render "form", company: @company %>
+</div>

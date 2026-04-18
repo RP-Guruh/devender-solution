@@ -1,44 +1,53 @@
-   <table class="admin-table">
-      <thead>
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th><%= sort_link(@q, :key, "Key") %></th>
+        <th>Value</th>
+        <th style="text-align: right;">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="settings">
+      <% settings.each do |setting| %>
         <tr>
-          <th class="color:black;"><%= sort_link(@q, :key, "Key") %></th>
-          <th>Value</th>
-          <th style="text-align: right;">Actions</th>
+          <td>
+            <span class="badge-key"><%= setting.key %></span>
+          </td>
+          <td>
+            <div style="max-width: 400px; color: rgba(255,255,255,0.7); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+              <%= setting.value %>
+            </div>
+          </td>
+          <td>
+            <div style="display: flex; justify-content: flex-end; gap: 6px;">
+
+              <%# View %>
+              <%= link_to [:admin, setting], class: "btn-icon btn-admin-secondary", title: "View Details" do %>
+                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+              <% end %>
+
+              <%# Edit %>
+              <%= link_to edit_admin_setting_path(setting), class: "btn-icon btn-admin-secondary", title: "Edit Setting" do %>
+                <i data-lucide="edit-3" style="width: 16px; height: 16px;"></i>
+              <% end %>
+
+              <%# Delete — reusable partial %>
+              <%= render "shared/admin/delete_dialog",
+                    delete_path: [:admin, setting],
+                    resource_name: setting.key,
+                    title: "Hapus Pengaturan" %>
+
+            </div>
+          </td>
         </tr>
-      </thead>
-      <tbody id="settings">
-        <% settings.each do |setting| %>
-          <tr>
-            <td>
-              <span class="badge-key"><%= setting.key %></span>
-            </td>
-            <td>
-              <div style="max-width: 400px; color: rgba(255,255,255,0.7); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                <%= setting.value %>
-              </div>
-            </td>
-            <td>
-              <div style="display: flex; justify-content: flex-end; gap: 6px;">
-                <%= link_to [:admin, setting], class: "btn-admin btn-admin-secondary", style: "width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 8px;", title: "View Details" do %>
-                  <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
-                <% end %>
-                <%= link_to edit_admin_setting_path(setting), class: "btn-admin btn-admin-secondary", style: "width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 8px;", title: "Edit Setting" do %>
-                  <i data-lucide="edit-3" style="width: 16px; height: 16px;"></i>
-                <% end %>
-                <%= link_to [:admin, setting], data: { turbo_method: :delete, turbo_confirm: "Are you sure? This will permanently delete this setting." }, class: "btn-admin btn-admin-danger", style: "width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 8px;", title: "Delete Setting" do %>
-                  <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
-                <% end %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-        <% if @settings.empty? %>
-          <tr>
-            <td colspan="3" style="text-align: center; padding: 60px; color: var(--text-muted);">
-              <i data-lucide="info" style="width: 32px; margin-bottom: 12px; opacity: 0.5;"></i>
-              <p>No settings found. Create your first setting to get started.</p>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+      <% end %>
+
+      <% if @settings.empty? %>
+        <tr>
+          <td colspan="3" style="text-align: center; padding: 60px; color: var(--muted);">
+            <i data-lucide="info" style="width: 32px; margin-bottom: 12px; opacity: 0.5;"></i>
+            <p>No settings found. Create your first setting to get started.</p>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

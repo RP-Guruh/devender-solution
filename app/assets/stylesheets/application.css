@@ -1762,5 +1762,351 @@ th a {
 
 th a:hover {
   text-decoration: underline;
+}
 
+/* ═══════════════════════════════════════
+   FORM UTILITIES
+   ═══════════════════════════════════════ */
+
+.form-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-actions .btn-admin {
+    justify-content: center;
+  }
+}
+
+/* ── FORM ERROR BOX ── */
+.form-error-box {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: rgba(255, 68, 68, 0.08);
+  border: 1px solid rgba(255, 68, 68, 0.2);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+}
+
+.form-error-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 68, 68, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff4444;
+  flex-shrink: 0;
+}
+
+.form-error-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+.form-error-list {
+  padding-left: 18px;
+  font-size: 13px;
+  color: rgba(255, 120, 120, 0.8);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════
+   CONFIRMATION DIALOG
+   ═══════════════════════════════════════ */
+
+/* Native <dialog> resets */
+.confirm-dialog {
+  /* Reset default browser dialog styles */
+  border: none;
+  padding: 0;
+  margin: auto;
+  background: transparent;
+
+  /* Centering */
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: 460px;
+  max-height: 100dvh;
+  overflow-y: auto;
+
+  /* Ensure it sits above everything */
+  z-index: 10000;
+}
+
+/* Backdrop — native ::backdrop for <dialog> */
+.confirm-dialog::backdrop {
+  background: rgba(5, 7, 10, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Inner card */
+.confirm-dialog-inner {
+  position: relative;
+  background: #141820;
+  border: 1px solid rgba(0, 200, 232, 0.15);
+  border-radius: 20px;
+  padding: 40px 36px;
+  margin: auto;
+  box-shadow:
+    0 0 0 1px rgba(0, 200, 232, 0.06),
+    0 32px 64px rgba(0, 0, 0, 0.6),
+    0 0 80px rgba(0, 200, 232, 0.06);
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Cyan glow decoration */
+.confirm-glow {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 200px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 232, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Icon wrapper */
+.confirm-icon-wrap {
+  position: relative;
+  z-index: 1;
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+  background: rgba(0, 200, 232, 0.08);
+  border: 1px solid rgba(0, 200, 232, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+  margin: 0 auto 28px;
+  box-shadow: 0 0 24px rgba(0, 200, 232, 0.12);
+}
+
+/* Content */
+.confirm-content {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 32px;
+}
+
+.confirm-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+
+.confirm-desc {
+  font-size: 14px;
+  color: rgba(245, 245, 245, 0.5);
+  line-height: 1.65;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* Action row */
+.confirm-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.confirm-btn-cancel {
+  min-width: 120px;
+}
+
+.confirm-btn-submit {
+  min-width: 140px;
+}
+
+/* Responsive: small screens */
+@media (max-width: 520px) {
+  .confirm-dialog {
+    max-width: calc(100vw - 32px);
+    border-radius: 16px;
+  }
+
+  .confirm-dialog-inner {
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+
+  .confirm-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .confirm-btn-cancel,
+  .confirm-btn-submit {
+    min-width: unset;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ═══════════════════════════════════════
+   BTN-ICON — square icon-only button
+   ═══════════════════════════════════════ */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════
+   DANGER DIALOG VARIANT
+   ═══════════════════════════════════════ */
+
+/* Override border color for danger dialog */
+.confirm-dialog-inner-danger {
+  border-color: rgba(255, 68, 68, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(255, 68, 68, 0.08),
+    0 32px 64px rgba(0, 0, 0, 0.6),
+    0 0 80px rgba(255, 68, 68, 0.06);
+}
+
+/* Red glow instead of cyan */
+.confirm-glow-danger {
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 68, 68, 0.18) 0%, transparent 70%);
+}
+
+/* Red icon wrap */
+.confirm-icon-wrap-danger {
+  background: rgba(255, 68, 68, 0.1);
+  border-color: rgba(255, 68, 68, 0.25);
+  color: #ff6b6b;
+  box-shadow: 0 0 24px rgba(255, 68, 68, 0.12);
+}
+
+/* ── CONFIRMATION INPUT GROUP ── */
+.confirm-input-group {
+  margin: 24px 0 8px;
+  text-align: left;
+}
+
+.confirm-input-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 10px;
+}
+
+.confirm-keyword {
+  font-family: 'JetBrains Mono', monospace;
+  color: #ff6b6b;
+  background: rgba(255, 68, 68, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.confirm-highlight {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--cyan);
+  background: rgba(0, 200, 232, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.confirm-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 68, 68, 0.2);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #fff;
+  font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 2px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.confirm-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 2px;
+}
+
+.confirm-input:focus {
+  outline: none;
+  border-color: rgba(255, 68, 68, 0.5);
+  background: rgba(255, 68, 68, 0.04);
+  box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.1);
+}
+
+/* Stacked actions (cancel + submit full-width) */
+.confirm-actions-stacked {
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.confirm-actions-stacked .btn-admin {
+  justify-content: center;
+  width: 100%;
+}
+
+/* Disabled state for delete button — before user types DELETE */
+.confirm-btn-submit:disabled,
+.confirm-btn-submit[disabled] {
+  opacity: 0.35;
+  pointer-events: none;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* button_to generates a <form> wrapper — reset its styles */
+.confirm-actions-stacked form {
+  all: unset;
+  display: contents;
 }

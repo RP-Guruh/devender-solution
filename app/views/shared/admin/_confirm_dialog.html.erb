@@ -1,0 +1,117 @@
+<%# 
+  ── SHARED: CONFIRM DIALOG PARTIAL ──────────────────────────────────────
+  Gunakan untuk konfirmasi sebelum submit form (save/update).
+
+  Wajib:
+    form          → Rails form builder object (dari form_with)
+
+  Opsional:
+    title         → Judul dialog                    (default: "Konfirmasi")
+    description   → Teks deskripsi                  (default: "Apakah Anda yakin?")
+    trigger_label → Label tombol trigger (save btn)  (default: "Simpan")
+    confirm_label → Label tombol submit di dialog    (default: "Ya, Lanjutkan")
+    cancel_path   → Path tombol Cancel               (default: nil = tidak tampil)
+
+  Contoh:
+    render "shared/admin/confirm_dialog",
+          form: form,
+          title: "Konfirmasi Perubahan",
+          description: "Apakah Anda yakin ingin menyimpan pengaturan ini?",
+          trigger_label: "Save Setting",
+          confirm_label: "Ya, Simpan",
+          cancel_path: admin_settings_path %>
+
+
+<%
+  title         = local_assigns.fetch(:title,         "Konfirmasi")
+  description   = local_assigns.fetch(:description,   "Apakah Anda yakin ingin melanjutkan tindakan ini?")
+  trigger_label = local_assigns.fetch(:trigger_label, "Simpan")
+  confirm_label = local_assigns.fetch(:confirm_label, "Ya, Lanjutkan")
+  cancel_path   = local_assigns.fetch(:cancel_path,   nil)
+%>
+
+<div data-controller="dialog" data-action="click->dialog#backdropClose">
+
+  <%# ── Trigger + Cancel row ── %>
+  <div class="form-actions">
+
+    <%# Trigger: buka dialog %>
+    <button type="button"
+            class="btn-admin btn-admin-primary"
+            data-action="dialog#open">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+        <polyline points="17 21 17 13 7 13 7 21"/>
+        <polyline points="7 3 7 8 15 8"/>
+      </svg>
+      <span><%= trigger_label %></span>
+    </button>
+
+    <% if cancel_path %>
+      <%= link_to cancel_path, class: "btn-admin btn-admin-secondary" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        <span>Batal</span>
+      <% end %>
+    <% end %>
+
+  </div>
+
+  <%# ── Dialog ── %>
+  <dialog data-dialog-target="dialog" class="confirm-dialog">
+    <div class="confirm-dialog-inner">
+
+      <%# Cyan glow %>
+      <div class="confirm-glow" aria-hidden="true"></div>
+
+      <%# Icon: save %>
+      <div class="confirm-icon-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+          <polyline points="17 21 17 13 7 13 7 21"/>
+          <polyline points="7 3 7 8 15 8"/>
+        </svg>
+      </div>
+
+      <%# Content %>
+      <div class="confirm-content">
+        <h3 class="confirm-title"><%= title %></h3>
+        <p class="confirm-desc"><%= description %></p>
+      </div>
+
+      <%# Actions %>
+      <div class="confirm-actions">
+        <button type="button"
+                class="btn-admin btn-admin-secondary confirm-btn-cancel"
+                data-action="dialog#close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          Batal
+        </button>
+
+        <%= form.button type: "submit", class: "btn-admin btn-admin-primary confirm-btn-submit" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <%= confirm_label %>
+        <% end %>
+      </div>
+
+    </div>
+  </dialog>
+
+</div>

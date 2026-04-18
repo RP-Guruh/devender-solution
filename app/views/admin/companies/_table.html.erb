@@ -1,0 +1,65 @@
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th><%= sort_link(@q, :name, "Name") %></th>
+      <th><%= sort_link(@q, :industry, "Industry") %></th>
+      <th><%= sort_link(@q, :year, "Year") %></th>
+      <th style="text-align: right;">Actions</th>
+    </tr>
+  </thead>
+  <tbody id="companies">
+    <% companies.each do |company| %>
+      <tr>
+        <td>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <%# Mini logo avatar %>
+            <div style="flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px; overflow: hidden; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center;">
+              <% if company.logo.attached? %>
+                <%= image_tag company.logo.variant(:thumb), style: "width: 100%; height: 100%; object-fit: cover;" %>
+              <% else %>
+                <i data-lucide="building-2" style="width: 16px; height: 16px; color: var(--text-muted); opacity: 0.5;"></i>
+              <% end %>
+            </div>
+            <span style="font-weight: 600; color: #fff;"><%= company.name %></span>
+          </div>
+        </td>
+        <td>
+          <span class="badge-key"><%= company.industry.presence || "—" %></span>
+        </td>
+        <td>
+          <span style="color: rgba(255,255,255,0.7); font-size: 13px;"><%= company.year || "—" %></span>
+        </td>
+        <td>
+          <div style="display: flex; justify-content: flex-end; gap: 6px;">
+
+            <%# View %>
+            <%= link_to [:admin, company], class: "btn-icon btn-admin-secondary", title: "View Details" do %>
+              <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+            <% end %>
+
+            <%# Edit %>
+            <%= link_to edit_admin_company_path(company), class: "btn-icon btn-admin-secondary", title: "Edit Company" do %>
+              <i data-lucide="edit-3" style="width: 16px; height: 16px;"></i>
+            <% end %>
+
+            <%# Delete %>
+            <%= render "shared/admin/delete_dialog",
+                  delete_path: [:admin, company],
+                  resource_name: company.name,
+                  title: "Hapus Company" %>
+
+          </div>
+        </td>
+      </tr>
+    <% end %>
+
+    <% if companies.empty? %>
+      <tr>
+        <td colspan="4" style="text-align: center; padding: 60px; color: var(--muted);">
+          <i data-lucide="building-2" style="width: 32px; margin-bottom: 12px; opacity: 0.5;"></i>
+          <p>No companies found. Create your first company to get started.</p>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
