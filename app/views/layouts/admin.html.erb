@@ -121,14 +121,15 @@
 
         <div class="nav-group">
           <div class="nav-label">Management</div>
-          <a href="#" class="nav-link">
-            <i data-lucide="users" style="width:18px"></i>
+             <a href="<%= admin_companies_path %>" class="nav-link #{'active' if controller_name == 'companies'}"">
+            <i data-lucide="building-2" style="width:18px"></i>
             <span class="sidebar-text">Clients</span>
           </a>
           <a href="<%= admin_settings_path %>" class="nav-link #{'active' if controller_name == 'settings'}"">
             <i data-lucide="settings" style="width:18px"></i>
             <span class="sidebar-text">Settings</span>
           </a>
+       
         </div>
 
         <div style="margin-top:auto">
