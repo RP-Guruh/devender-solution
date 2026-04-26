@@ -16,6 +16,10 @@ module DevenderSolution
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    config.active_record.encryption.primary_key = ENV['AR_PRIMARY_KEY']
+    config.active_record.encryption.deterministic_key = ENV['AR_DETERMINISTIC_KEY']  
+    config.active_record.encryption.key_derivation_salt = ENV['AR_KEY_DERIVATION_SALT']
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

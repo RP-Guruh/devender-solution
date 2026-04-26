@@ -70,3 +70,6 @@ group :test do
 end
 
 gem "devise", "~> 5.0"
+gem 'devise-two-factor'
+gem 'rqrcode' 
+gem 'dotenv-rails', '~> 3.2'

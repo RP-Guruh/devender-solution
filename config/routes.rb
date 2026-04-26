@@ -1,6 +1,22 @@
 Rails.application.routes.draw do
   
 
+  devise_for :users, controllers: {
+   sessions: 'users/sessions'
+  }
+
+    # 2FA verification saat login
+  resource :two_factor_authentication,
+    only: [:show, :create],
+    controller: 'users/two_factor_authentications',
+    path: '2fa'
+
+  # Setup enable/disable 2FA
+  resource :two_factor_setup,
+    only: [:show, :create, :destroy],
+    controller: 'users/two_factor_setups',
+    path: 'settings/2fa'
+
   namespace :admin do
     get "dashboard" => "dashboard#show"
     resources :settings
@@ -8,7 +24,6 @@ Rails.application.routes.draw do
     resources :companies
   
   end
-  devise_for :users
   get "pages/home"
   get "pages/services"
   get "pages/work"

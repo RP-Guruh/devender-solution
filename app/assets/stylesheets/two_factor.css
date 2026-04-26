@@ -1,0 +1,181 @@
+/* 2FA Container */
+.two-factor-auth-container {
+  max-width: 520px;
+  margin: 140px auto 100px;
+  padding: 48px;
+  background: var(--gray, #1A1A1A);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 10;
+}
+
+.two-factor-header h2 {
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--white, #fff);
+  margin-bottom: 8px;
+}
+
+.two-factor-header p {
+  font-size: 14px;
+  color: var(--text-muted, #888);
+  margin-bottom: 32px;
+}
+
+/* Security Status Badge */
+.security-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.security-status-badge.active {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.security-status-badge.inactive {
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+  border: 1px solid rgba(255, 68, 68, 0.2);
+}
+
+.security-status-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* QR Code Section */
+.qr-container {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: 0 0 40px rgba(0, 200, 232, 0.2);
+}
+
+.qr-container svg {
+  display: block;
+  width: 200px !important;
+  height: 200px !important;
+}
+
+/* Manual Key Fallback */
+.manual-key-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--border-color, rgba(255, 255, 255, 0.1));
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+}
+
+.manual-key-section label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted, #888);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.manual-key-section code {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 16px;
+  color: var(--accent, #00C8E8);
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+/* OTP Input Styling */
+.otp-input-field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 24px;
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 20px;
+}
+
+.otp-input-field:focus {
+  outline: none;
+  border-color: var(--accent, #00C8E8);
+  background: rgba(0, 200, 232, 0.05);
+  box-shadow: 0 0 20px rgba(0, 200, 232, 0.1);
+}
+
+/* Auth Actions */
+.auth-submit-btn {
+  width: 100%;
+  background: var(--accent, #00C8E8);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 200, 232, 0.3);
+}
+
+.auth-submit-btn.danger {
+  background: transparent;
+  border: 1px solid rgba(255, 68, 68, 0.3);
+  color: #ff4444;
+}
+
+.auth-submit-btn.danger:hover {
+  background: #ff4444;
+  color: #fff;
+  border-color: #ff4444;
+  box-shadow: 0 10px 25px rgba(255, 68, 68, 0.3);
+}
+
+/* Flash Messages for 2FA */
+.two-factor-flash {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.two-factor-flash.alert {
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+  border: 1px solid rgba(255, 68, 68, 0.2);
+}
+
+.two-factor-flash.notice {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}

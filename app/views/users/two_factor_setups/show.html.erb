@@ -1,0 +1,196 @@
+<style>
+  /* Forced Layout Adjustments for 2FA Page */
+  .two_factor_setups-page main {
+    padding: 0;
+  }
+  
+  .auth-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 24px 100px;
+    background: radial-gradient(circle at top right, rgba(0, 200, 232, 0.05) 0%, transparent 60%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .auth-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(0, 200, 232, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 200, 232, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse at center, black, transparent);
+    pointer-events: none;
+  }
+
+  /* Override any potentially failing external styles */
+  .premium-2fa-card {
+    width: 100%;
+    max-width: 520px;
+    background: #1A1A1A;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 48px;
+    text-align: center;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+  }
+
+  .status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .status-tag.active { border-color: #00ff88; color: #00ff88; background: rgba(0, 255, 136, 0.05); }
+  .status-tag.inactive { border-color: #ff4444; color: #ff4444; background: rgba(255, 68, 68, 0.05); }
+
+  .status-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .otp-input-field {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 2px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 14px !important;
+    padding: 18px !important;
+    font-size: 28px !important;
+    font-family: inherit !important;
+    font-weight: 800 !important;
+    color: #fff !important;
+    text-align: center !important;
+    letter-spacing: 10px !important;
+    margin: 20px 0 !important;
+    transition: 0.3s !important;
+    outline: none !important;
+  }
+
+  .otp-input-field:focus {
+    border-color: #00C8E8 !important;
+    box-shadow: 0 0 20px rgba(0, 200, 232, 0.1) !important;
+  }
+
+  .auth-btn {
+    width: 100%;
+    background: #00C8E8;
+    color: #000;
+    border: none;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0, 200, 232, 0.3);
+  }
+
+  .auth-btn.danger {
+    background: transparent;
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    color: #ff4444;
+  }
+
+  .auth-btn.danger:hover {
+    background: #ff4444;
+    color: #fff;
+    border: none;
+  }
+</style>
+
+<section class="auth-section">
+  <div class="premium-2fa-card reveal visible">
+    <div class="status-tag <%= current_user.otp_required_for_login ? 'active' : 'inactive' %>">
+      <span class="dot"></span>
+      <%= current_user.otp_required_for_login ? 'Shield Active' : 'Shield Inactive' %>
+    </div>
+
+    <h2 style="font-family: var(--font-display); font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px;">Account Security</h2>
+    <p style="font-size: 15px; color: var(--muted); margin-bottom: 40px; line-height: 1.6;">
+      <%= current_user.otp_required_for_login ? 'Your account is protected by an additional security layer.' : 'Link your account to an authenticator app for enhanced security.' %>
+    </p>
+
+    <% flash.each do |type, message| %>
+      <div style="padding: 14px; border-radius: 10px; margin-bottom: 24px; font-size: 13px; font-weight: 600; text-align: left; <%= type == 'alert' ? 'background:rgba(255,68,68,0.1); color:#ff4444; border:1px solid rgba(255,68,68,0.2);' : 'background:rgba(0,255,136,0.1); color:#00ff88; border:1px solid rgba(0,255,136,0.2);' %>">
+        <%= message %>
+      </div>
+    <% end %>
+
+    <% unless current_user.otp_required_for_login %>
+      <div style="margin-bottom: 40px;">
+        <div style="background: #fff; padding: 15px; border-radius: 16px; display: inline-block; box-shadow: 0 0 30px rgba(0, 200, 232, 0.2);">
+          <%= otp_qr_code(current_user, size: 6) %>
+        </div>
+        <p style="font-size: 13px; color: var(--muted); margin-top: 20px; font-weight: 500;">
+          Scan with <span style="color:#00C8E8">Google Authenticator</span>
+        </p>
+      </div>
+
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(255, 255, 255, 0.1); padding: 18px; border-radius: 12px; margin-bottom: 32px;">
+        <span style="display: block; font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; font-weight: 700;">Secret Key</span>
+        <code style="font-family: monospace; font-size: 17px; color: #00C8E8; letter-spacing: 2px; font-weight: 600;"><%= current_user.otp_secret.scan(/.{4}/).join(' ') %></code>
+      </div>
+
+      <%= form_with url: two_factor_setup_path, method: :post do |f| %>
+        <%= f.text_field :otp_attempt, 
+            placeholder: "······",
+            class: "otp-input-field",
+            autocomplete: 'off', 
+            inputmode: 'numeric',
+            maxlength: 6,
+            required: true %>
+        <%= f.submit 'Confirm Activation', class: "auth-btn" %>
+      <% end %>
+
+    <% else %>
+      <div style="margin: 40px 0; padding: 24px; border: 1px solid rgba(0, 255, 136, 0.1); border-radius: 20px; background: rgba(0, 255, 136, 0.03);">
+        <i data-lucide="shield-check" style="width: 48px; height: 48px; color: #00ff88; margin-bottom: 16px;"></i>
+        <h4 style="color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">Protection is ON</h4>
+        <p style="font-size: 13px; color: var(--muted);">Account requires OTP for every login session.</p>
+      </div>
+
+      <%= form_with url: two_factor_setup_path, method: :delete do |f| %>
+        <%= f.text_field :otp_attempt, 
+            placeholder: "······",
+            class: "otp-input-field",
+            autocomplete: 'off', 
+            inputmode: 'numeric',
+            maxlength: 6,
+            required: true %>
+        <%= f.submit 'Disable Security', 
+            class: "auth-btn danger", 
+            data: { confirm: 'Warning: Disabling 2FA will lower your account security. Continue?' } %>
+      <% end %>
+    <% end %>
+
+    <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 32px;">
+      <a href="<%= admin_dashboard_path %>" style="color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
+        <i data-lucide="chevron-left" style="width: 16px;"></i>
+        Back to Global Settings
+      </a>
+    </div>
+  </div>
+</section>

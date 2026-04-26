@@ -30,6 +30,31 @@
     </div>
   <% end %>
 </div>
+<!-- SECURITY STATUS CARD -->
+<div style="background:var(--card-bg); border:1px solid var(--border-color); padding:24px; border-radius:16px; margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
+  <div style="display: flex; gap: 20px; align-items: center;">
+    <div style="width:56px; height:56px; border-radius:14px; background:rgba(0, 200, 232, 0.05); display:flex; align-items:center; justify-content:center; border: 1px solid rgba(0, 200, 232, 0.1);">
+      <i data-lucide="shield-check" style="width:28px; color:var(--accent)"></i>
+    </div>
+    <div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <h3 style="font-family:'Plus Jakarta Sans', sans-serif; font-size:18px; font-weight:700; margin: 0;">Account Security</h3>
+        <div class="security-status-badge <%= current_user.otp_required_for_login ? 'active' : 'inactive' %>" style="margin: 0; transform: scale(0.9);">
+          <span class="dot"></span>
+          <%= current_user.otp_required_for_login ? '2FA Active' : '2FA Inactive' %>
+        </div>
+      </div>
+      <p style="color:var(--text-muted); font-size:13px; margin-top:4px;">
+        <%= current_user.otp_required_for_login ? 'Your account is protected with Two-Factor Authentication.' : 'Enable Two-Factor Authentication to secure your account from unauthorized access.' %>
+      </p>
+    </div>
+  </div>
+  
+  <a href="<%= two_factor_setup_path %>" style="background: <%= current_user.otp_required_for_login ? 'transparent' : 'var(--accent)' %>; border: <%= current_user.otp_required_for_login ? '1px solid var(--border-color)' : 'none' %>; color: <%= current_user.otp_required_for_login ? '#fff' : '#000' %>; padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; transition: 0.3s; display: flex; align-items: center; gap: 10px;">
+    <i data-lucide="<%= current_user.otp_required_for_login ? 'settings-2' : 'shield' %>" style="width: 18px;"></i>
+    <%= current_user.otp_required_for_login ? 'Manage 2FA' : 'Enable 2FA Now' %>
+  </a>
+</div>
 
 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px;">
   <!-- TABLE CARD -->
